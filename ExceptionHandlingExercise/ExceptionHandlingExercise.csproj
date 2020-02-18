@@ -7,5 +7,6 @@
 
   <ItemGroup>
     <None Remove="DataFile.txt" />
+    <None Remove="Error.txt" />
   </ItemGroup>
 </Project>

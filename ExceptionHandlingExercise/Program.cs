@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace ExceptionHandlingExercise
 {
@@ -21,27 +22,61 @@ namespace ExceptionHandlingExercise
 
 
             //TODO START HERE:
+
+            var arr = new char[] { '1', '2', '3', '4', '5', '6', 'a', 'b', 'c' };
+            var list = new List<int>();
+            var str = "";
             
             // Make a foreach loop to iterate through your character array
-            
-                // Now create a try catch
-                
-                
-                    // Inside your try block
-                        // set your string variable to each array element in your char[] to .ToString()
-                        // Now, using int.Parse, parse your string variable and store in an int variable
-                        // Then add each int to your list
-                
-                // in your () of your catch, 
-                
-                    //Console.WriteLine($"Unable to Parse '{character}'"); //character will be the name of each item in your collection
-                
-            
+            foreach(var ch in arr)
+            {
+                try
+                {
+                    str = ch.ToString();
+                    var num = int.Parse(str);
+                    list.Add(num);
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine($"Unable to Parse '{ch}'");
+                    Console.WriteLine(ex.Message);
+                    LoggerError(ex, ch);
+                }
+            }
 
-            //foreach (var num in numbers)
-            //{
-            //    Console.WriteLine(num);
-            //}
+            // Now create a try catch
+
+
+            // Inside your try block
+            // set your string variable to each array element in your char[] to .ToString()
+            // Now, using int.Parse, parse your string variable and store in an int variable
+            // Then add each int to your list
+
+            // in your () of your catch, 
+
+            //Console.WriteLine($"Unable to Parse '{character}'"); //character will be the name of each item in your collection
+
+
+
+            foreach (var num in list)
+            {
+                Console.WriteLine(num);
+            }
+            
+        }
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        static void LoggerError (Exception error, char ch)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append($"{Environment.NewLine}--------------------{Environment.NewLine}");
+            sb.Append($"{error.Message} Unable to Parse '{ch}.' {DateTime.Now}");
+            sb.Append($"{Environment.NewLine}--------------------{Environment.NewLine}");
+            var filePath = "";
+
+            File.AppendAllText(filePath + "log.txt", sb.ToString());
         }
     }
 }
